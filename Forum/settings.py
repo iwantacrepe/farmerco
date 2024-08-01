@@ -1,21 +1,21 @@
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'xy_!!aqc3hp(cc$-8vj^40y(t0v_ji&=8&oanuuprby+xszyos'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG","False").lower()=="true"
 
-ALLOWED_HOSTS = ['.vercel.app','.now.sh']
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -67,12 +67,14 @@ WSGI_APPLICATION = 'Forum.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': BASE_DIR / 'db.sqlite3',
-     }
- }
-
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+database_url=os.environ.get("DATABASE_URL")
+DATABASES["default"]=dj_database_url.parse(database_url)
+#postgresql://prettyprinted_django_render_rx9e_user:NZCAyp7vfcNKG7dgCzAunAHSbfZhlipE@dpg-cqlslpt2ng1s73e89q6g-a.oregon-postgres.render.com/prettyprinted_django_render_rx9e
 
 
 # Password validation
@@ -123,7 +125,3 @@ STATIC_ROOT=os.path.join(BASE_DIR, 'staticfiles')
 # Managing Media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-DEFAULT_AUTO_FIELD='django.db.models.BigAutoField'
-
-STATICFILES_DIRS=os.path.join(BASE_DIR,'static'),
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles_build' ,'static')

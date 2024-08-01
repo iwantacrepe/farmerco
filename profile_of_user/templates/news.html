@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Newsweb</title>
+
+    <!--font awesome-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!--Google font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!---css style-->
+    
+    <style>
+* {
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin: 0;
+    background: #f5f6f9;
+}
+header {
+    background-color: #ffffff;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 3px 10px 0 rgba(80, 119, 242, 0.3);
+}
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+main {
+    padding: 20px;
+}
+section {
+    margin-bottom: 40px;
+}
+section h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+.newsBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% / 2 - 20px);
+    box-shadow: 7px 7px 25px 1px rgba(0, 0, 0, 0.06);
+    border-radius: 5px;
+    overflow: hidden;
+    padding-bottom: 10px;
+    background: #ffffff;
+}
+.card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    background-color: #f4f4f4;
+}
+.card h4, .card div {
+    padding: 5px 10px;
+    margin: 0;
+}
+.publishbyDate {
+    display: flex;
+    align-items: center;
+    color: #a5a1a1;
+}
+.publishbyDate p {
+    margin: 0;
+    font-size: 14px;
+}
+.publishbyDate span {
+    padding: 0px 10px;
+}
+.desc {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    margin: 0;
+}
+.card a {
+    color: inherit;
+    text-decoration: none;
+}
+@media all and (min-width: 700px) {
+    .newsBox {
+        justify-content: center;
+    }
+    .card {
+        width: calc(100% / 4 - 20px);
+    }
+    .card h4, .card div {
+        padding: 5px 15px;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>News</h1>
+    </header>
+
+    <main>
+        <section id="governmentSchemes">
+            <h2>Government Schemes</h2>
+            <div class="newsBox"></div>
+        </section>
+        <section id="agriculturalNews">
+            <h2>Agricultural News</h2>
+            <div class="newsBox"></div>
+        </section>
+        <section id="expertOpinion">
+            <h2>Expert Opinion</h2>
+            <div class="newsBox"></div>
+        </section>
+        <section id="marketUpdates">
+            <h2>Market Updates</h2>
+            <div class="newsBox"></div>
+        </section>
+    </main>
+
+    <script>
+
+// Manually add news content
+const newsData = {
+    governmentSchemes: [
+        {
+            url: 'https://timesofindia.indiatimes.com/india/empowering-indias-farmers-list-of-schemes-for-welfare-of-farmers-in-india/articleshow/107854121.cms',
+            urlToImage: 'https://static.toiimg.com/thumb/msid-107854532,imgsize-101780,width-400,resizemode-4/107854532.jpg',
+            title: 'Empowering India\'s farmers: List of welfare schemes for farmers in India'
+        },
+        {
+            url: 'https://www.news18.com/india/maharashtra-govt-announces-free-electricity-for-agri-pump-farmers-under-new-scheme-8983332.html ',
+            urlToImage: 'https://images.news18.com/ibnlive/uploads/2024/07/untitled-design-38-2024-07-0fa3c3bb31f6d836c9b9612feeb2f459.jpg?impolicy=website&width=640&height=480',
+            title: 'Maharashtra Govt Announces Free Electricity for Agri Pump Farmers Under New Scheme'
+        },
+        {
+            url: 'https://www.thestatesman.com/india/up-budget-three-new-schemes-to-boost-agriculture-1503266835.html ',
+            urlToImage: 'https://www.thestatesman.com/wp-content/uploads/2024/02/20240205067L-1.jpg',
+            title: 'UP Budget: Three new schemes to boost agriculture'
+        },
+        {
+            url: 'https://www.business-standard.com/india-news/chhattisgarh-to-launch-new-scheme-for-farmers-probe-agency-for-naxal-cases-124030601324_1.html ',
+            urlToImage: 'https://bsmedia.business-standard.com/_media/bs/img/article/2022-03/03/full/1646249326-181.jpg?im=FitAndFill=(826,465)',
+            title: 'Chhattisgarh to launch new scheme for farmers, probe agency for Naxal cases'
+        }
+    ],
+    agriculturalNews: [
+        {
+            url: 'https://www.thehindu.com/business/budget/budget-2024-agriculture-employment-infrastructure-feature-in-nine-priorities-of-third-nda-government/article68435591.ece',
+            urlToImage: 'https://th.bing.com/th/id/OIP.au_Ahofc1-uBbGavw3WJFwHaEA?rs=1&pid=ImgDetMain',
+            title: 'Budget 2024: Agriculture, Employment, Infrastructure feature in nine priorities of third NDA government'
+        },
+        {
+            url: 'https://www.businesstoday.in/industry/agriculture/story/govt-sets-conservative-target-for-wheat-procurement-at-30-32-million-tonnes-in-2024-25-season-419487-2024-02-29',
+            urlToImage: 'https://akm-img-a-in.tosshub.com/businesstoday/images/story/202402/65e03383e664f-government-sets-conservative-targets-for-wheat-procurement-despite-record-production-expectations-293425988-16x9.jpg?size=948:533',
+            title: 'Govt sets conservative target for wheat procurement at 30-32 million tonnes in 2024-25 season'
+        },
+        {
+            url: 'https://economictimes.indiatimes.com/news/economy/agriculture/government-to-buy-all-masur-urad-and-tur-dal-produced-by-farmers-agriculture-minister/articleshow/112046280.cms',
+            urlToImage: 'https://img.etimg.com/thumb/msid-112046299,width-300,height-225,imgsize-85684,resizemode-75/prices-of-tur-chana-urad-dals-likely-to-soften-from-july-on-good-monsoon-higher-imports-govt.jpg',
+            title: 'Government to buy all masur, urad and tur dal produced by farmers: Agriculture minister'
+        },
+        {
+            url: 'https://indianexpress.com/article/cities/mumbai/maharashtra-to-borrow-over-rs-17000-crore-for-agriculture-solar-pumps-9212670/',
+            urlToImage: 'https://images.indianexpress.com/2024/03/Untitled-2024-03-13T202930.434.jpeg?w=640',
+            title: 'Maharashtra to borrow over Rs 17,000 crore for agriculture solar pumps'
+        }
+    ],
+    expertOpinion: [
+        {
+            url: 'https://www.worldbank.org/en/news/feature/2012/05/17/india-agriculture-issues-priorities',
+            urlToImage: 'https://www.worldbank.org/content/dam/Worldbank/Feature%20Story/India-Agriculture-400x264.jpg',
+            title: 'India: Issues and Priorities for Agriculture'
+        },
+        {
+            url: 'https://eastasiaforum.org/2024/03/30/farmers-agitations-and-the-indian-agricultural-system/',
+            urlToImage: 'https://eastasiaforum.org/wp-content/uploads/2024/03/2024-03-14T084440Z_351804970_RC2HL6A2FE8Z_RTRMADP_3_INDIA-FARMERS-PROTESTS-1024x685.jpg',
+            title: 'Farmers’ agitations and the Indian agricultural system'
+        },
+        {
+            url: 'https://www.downtoearth.org.in/agriculture/understanding-climate-effect-on-crop-yield-and-associated-risks-to-water-security-in-india-is-crucial-93393',
+            urlToImage: 'https://gumlet.assettype.com/down-to-earth%2Fimport%2Flibrary%2Flarge%2F2023-12-14%2F0.23567300_1702556471_istock-502817395.jpg?w=1200&auto=format%2Ccompress&fit=max',
+            title: 'Understanding climate effect on crop yield and associated risks to water security in India is crucial'
+        },
+        {
+            url: 'https://timesofindia.indiatimes.com/blogs/voices/drone-technology-in-agriculture-benefits-and-challenges-for-rural-india/',
+            urlToImage: 'https://www.agrifarming.in/wp-content/uploads/Agriculture-Drone-Subsidy-Scheme-1-696x465.jpg',
+            title: 'Drone technology in agriculture: Benefits and challenges for rural India'
+        }
+    ],
+    marketUpdates: [
+        {
+            url: 'https://economictimes.indiatimes.com/news/economy/agriculture/cottonseed-oil-prices-likely-to-rise-by-rs-5-6-per-litre-during-festive-season/articleshow/112103257.cms',
+            urlToImage: 'https://www.fairtradeamerica.org/app/uploads/2021/05/FLO32849__lpr-aspect-ratio-1225-540.jpg',
+            title: 'Cottonseed oil prices likely to rise by Rs 5-6 per litre during festive season'
+        },
+        {
+            url: 'https://economictimes.indiatimes.com/news/economy/agriculture/onion-to-stay-on-hot-plate-for-a-fortnight-say-traders/articleshow/112117482.cms',
+            urlToImage: 'https://www.asiafarming.com/wp-content/uploads/2015/11/Onion-Farming.jpg',
+            title: 'Onion to stay on hot plate for a fortnight, say traders'
+        },
+        {
+            url: 'https://economictimes.indiatimes.com/news/economy/agriculture/bengal-potato-dispatches-from-cold-storages-surge-by-35-per-cent-a-day-after-traders-withdraw-strike/articleshow/112007755.cms',
+            urlToImage: 'https://5.imimg.com/data5/XQ/VW/MY-9573506/potato-cold-storage-1000x1000.jpg',
+            title: 'Bengal: Potato dispatches from cold storages surge by 35 per cent a day after traders withdraw strike'
+        },
+        {
+            url: 'https://economictimes.indiatimes.com/news/economy/agriculture/as-tomato-prices-soar-over-rs-80/kg-icars-hybrids-offer-hope-for-market-stability/articleshow/111761779.cms',
+            urlToImage: 'https://www.ckl.africa/wp-content/uploads/2018/07/crop-protection-banner.jpg',
+            title: 'As tomato prices soar over Rs 80/kg, ICAR\'s hybrids offer hope for market stability'
+        }
+    ]
+};
+
+function renderNews(sectionId, articles) {
+    const section = document.getElementById(sectionId);
+    const newsBox = section.querySelector('.newsBox');
+    let html = '';
+    articles.forEach(article => {
+        html += `
+            <div class="card">
+                <a href="${article.url}" target="_blank">
+                    <img src="${article.urlToImage}" alt="News Image">
+                    <h4>${article.title}</h4>
+                </a>
+            </div>
+        `;
+    });
+    newsBox.innerHTML = html;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderNews('governmentSchemes', newsData.governmentSchemes);
+    renderNews('agriculturalNews', newsData.agriculturalNews);
+    renderNews('expertOpinion', newsData.expertOpinion);
+    renderNews('marketUpdates', newsData.marketUpdates);
+});
+
+
+    </script>
+</body>
+</html>

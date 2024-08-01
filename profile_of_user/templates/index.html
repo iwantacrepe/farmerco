@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/png" href="https://image.ibb.co/fOur3b/favicon.png"/>
+<meta name="theme-color" content="#3a9fff">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<style>
+  a {
+    color: white;
+    opacity: 0.6;
+    text-decoration: none;
+  }
+  
+  a:hover, a:active, a:focus{
+    color: white;
+    text-decoration: none;
+    opacity: 1;
+  }
+  
+  .active {
+    color: white;
+    text-decoration: none;
+    opacity: 1;
+  }
+  
+  body{
+    background-color: #F4F6F7;
+  }
+  
+  #wrapper {
+    background-color: #28688C;
+    box-shadow: 1px 5px 25px 3px #444;
+    border-radius: 10px;
+    margin: 100px auto;
+    max-width: 720px;
+    padding: 0px;
+    color: white;  
+  }
+  
+  #current-weather{
+    padding: 15px;
+  }
+  
+  #mainTemperature{
+    font-size: 5.5em; 
+    line-height: 0.7;
+  }
+  
+  #tempDescription {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .day-weather-box {
+    border: 1px solid #28688C;
+    background-color: #2E7FA1;
+    border-radius: 5px;
+    height: 5em;
+  }
+  
+  .day-weather-box p{
+    margin-bottom: 0;
+  }
+  
+  .side-weather-info {
+    padding: 0px 10px;
+  }
+  
+  .day-weather-inner-box {
+    display: inline-flex;
+    margin: 14px auto;
+    padding: 0px 5px;
+  }
+  
+  .forecast-main {
+    padding: 0px 0px 0px 30px;
+  }
+  
+  .forecast-icon {
+    font-size: 25px;
+    margin-left: 5px;
+  }
+  
+  .modal-body p{
+    color: #333;
+  }
+   
+  /* Crop*/
+  .card-cover {
+    background-size: cover;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .card {
+    flex: 1 1 calc(25% - 20px); /* Adjust the size of each card */
+    margin: 5px;
+    border-radius: 5%;
+    padding: 5px;
+    
+  }
+  .card h3 {
+    margin-top: auto;
+  }
+  .cards-container {
+    display: flex;
+    flex-wrap: nowrap; /* Keep the cards in a single line */
+    overflow-x: auto; /* Add horizontal scroll if needed */
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+  }
+  .card img {
+    width: 100%;
+  }
+  .description {
+    visibility: hidden;
+  }
+  .card:hover .description {
+    visibility: visible;
+  }
+
+/* roadmap */
+  @keyframes strokeoffset {
+        0% {
+          stroke-dashoffset: 0px;
+        }
+        100% {
+          stroke-dashoffset: 1000px;
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      .roadmap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+        min-width: 100%;
+        padding: 0 80px 80px 0;
+        overflow: hidden;
+        color: black;
+        font-family: "Muli", arial, sans-serif;
+        list-style: none;
+      }
+      @media (max-width: 1200px) {
+        .roadmap {
+          padding: 0 0 80px 0;
+          align-items: center;
+          width: auto;
+          flex-direction: row;
+          justify-content: flex-start;
+        }
+      }
+      .roadmap-title {
+        padding-left: 0.1em;
+        z-index: 1;
+        font-family: "Nunito", arial, sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        line-height: 1.1;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-title {
+          padding-bottom: 80px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-title {
+          align-self: flex-start;
+          width: 10vw;
+          word-wrap: break-word;
+          position: absolute;
+        }
+      }
+      .roadmap-bg {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        opacity: 0.15;
+        filter: blur(10px);
+      }
+      .roadmap-timeline {
+        display: flex;
+        height: 0;
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeline {
+          flex-direction: column;
+          height: auto;
+          width: 0;
+          padding-left: 50%;
+          padding-right: 50%;
+        }
+      }
+      .roadmap-timeline::before {
+        content: "";
+        position: relative;
+        background: black;
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeline::before {
+          height: 300px;
+          left: -5px;
+          width: 10px;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeline::before {
+          width: 300px;
+          top: -5px;
+          height: 10px;
+        }
+      }
+      .roadmap-timeline::after {
+        content: "";
+        position: absolute;
+        align-self: center;
+        width: 340px;
+        height: 800px;
+        left: 0;
+        background: url("https://s14.postimg.org/cwe76i4r5/paint2.png") left center;
+        background-repeat: no-repeat;
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeline::after {
+          top: 0;
+          transform: translateX(calc(100vw - 330px)) rotateZ(90deg);
+          width: 800px;
+          height: 800px;
+          left: -50vw;
+        }
+      }
+      .roadmap-timeframe {
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column-reverse;
+        align-self: flex-end;
+        position: relative;
+        z-index: 1;
+        min-width: 100px;
+        width: 0;
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe {
+          width: 50vw;
+          max-width: 300px;
+        }
+      }
+      .roadmap-timeframe::after {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 25px;
+        background: black;
+        border-radius: 50%;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe::after {
+          left: 50%;
+          bottom: 0;
+          transform: translate(-50%, 50%);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe::after {
+          right: -12.5px;
+          bottom: -12.5px;
+        }
+      }
+      .roadmap-timeframe:nth-child(3n-2) .roadmap-swirly path {
+        animation-delay: -2s;
+      }
+      .roadmap-timeframe:nth-child(3n-1) .roadmap-swirly path {
+        animation-delay: -4s;
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:first-child {
+          width: 40vw;
+          margin-top: -42.5px;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:last-child .roadmap-events::after {
+          content: none;
+        }
+      }
+      .roadmap-timeframe:nth-child(even) {
+        flex-direction: column;
+        align-self: flex-start;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even)::after {
+          top: 0;
+          transform: translate(-50%, -50%);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even)::after {
+          right: auto;
+          left: -12.5px;
+        }
+      }
+      .roadmap-timeframe:nth-child(even) .roadmap-date {
+        bottom: auto;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-date {
+          transform: translateY(calc(-100% - 25px / 2));
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-date {
+          justify-content: flex-end;
+          transform: translate(-100%, -50%);
+          top: 50%;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-events {
+          padding: 150px calc(15vw - 200px) 0 0;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-events {
+          padding: 0 25px 150px 10vw;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-events::before {
+          top: -5px;
+          bottom: auto;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-events::after {
+          top: -5px;
+          bottom: auto;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-events::after {
+          left: -5px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event {
+          text-align: right;
+          justify-content: flex-end;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event:first-child {
+          padding-top: 0;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event:first-child .roadmap-vline::after {
+          top: calc(50% + 14px / 2 + 10px - 10px);
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event:last-child {
+          padding-bottom: 20px;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event:last-child .roadmap-vline::before {
+          bottom: calc(50% + 14px / 2 + 10px);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-event::before {
+          order: 2;
+          margin: 0 0 0 20px;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-swirly {
+          transform: rotateX(180deg);
+          bottom: auto;
+          top: 30px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-swirly {
+          transform: rotateY(180deg);
+          height: 145px;
+          bottom: 0;
+          top: auto;
+          left: auto;
+          right: calc(-6% + 36px);
+          width: calc(106% - 64px);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-timeframe:nth-child(even) .roadmap-vline::before, .roadmap-timeframe:nth-child(even) .roadmap-vline::after {
+          left: auto;
+          right: 5px;
+        }
+      }
+      .roadmap-swirly {
+        position: absolute;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-swirly {
+          height: 110px;
+          bottom: 30px;
+          left: calc(-3% + 7px);
+          width: calc(53% - 5px);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-swirly {
+          height: 145px;
+          bottom: 0;
+          left: calc(-6% + 36px);
+          width: calc(106% - 64px);
+        }
+      }
+      .roadmap-swirly path {
+        stroke-width: 4px;
+        stroke: #f74cac;
+        fill-opacity: 0;
+        vector-effect: non-scaling-stroke;
+        stroke-dashoffset: 0;
+        stroke-dasharray: 50;
+        animation: strokeoffset 55s linear infinite;
+      }
+      .roadmap-swirly path:nth-of-type(1) {
+        stroke-dasharray: 0;
+        animation: none;
+      }
+      .roadmap-swirly path:nth-of-type(2) {
+        stroke: rgba(165, 245, 255, 0.72);
+      }
+      .roadmap-date {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 60px;
+        text-align: center;
+        text-transform: uppercase;
+        color: black;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-date {
+          bottom: 0;
+          transform: translateY(calc(100% + 25px / 2));
+          font-size: 18px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-date {
+          transform: translate(100%, -50%);
+          justify-content: flex-start;
+          padding: 0 30px;
+          top: 50%;
+          font-size: 19px;
+        }
+      }
+      .roadmap-events {
+        position: relative;
+        padding-bottom: 150px;
+        list-style: none;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-events {
+          padding-right: calc(15vw - 200px);
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-events {
+          position: relative;
+          padding-bottom: 150px;
+          list-style: none;
+          padding-left: 25px;
+          padding-right: 10vw;
+        }
+      }
+      @media (min-width: 1201px) {
+        .roadmap-events::before {
+          content: "";
+          position: absolute;
+          background: black;
+          height: 10px;
+          left: 0;
+          right: calc(50% + 42.5px);
+          bottom: -5px;
+        }
+      }
+      .roadmap-events::after {
+        content: "";
+        position: absolute;
+        background: black;
+      }
+      @media (min-width: 1201px) {
+        .roadmap-events::after {
+          height: 10px;
+          left: calc(50% + 42.5px);
+          right: 0;
+          bottom: -5px;
+        }
+      }
+      @media (max-width: 1200px) {
+        .roadmap-events::after {
+          top: 42.5px;
+          bottom: 42.5px;
+          right: -5px;
+          width: 10px;
+        }
+      }
+      .roadmap-event {
+        display: flex;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        padding: 20px 0;
+      }
+      .roadmap-event::before {
+        content: "";
+        flex-shrink: 0;
+        left: 0px;
+        margin-right: 10px;
+        border-radius: 50%;
+        width: 14px;
+        height: 14px;
+        background: #f74cac;
+      }
+      .roadmap-event:first-child .roadmap-vline::before {
+        content: none;
+      }
+      .roadmap-event:last-child {
+        padding-bottom: 0px;
+      }
+      .roadmap-event:last-child .roadmap-vline::before {
+        bottom: calc(50% + 14px / 2 + 10px - 10px);
+      }
+      .roadmap-event:last-child .roadmap-vline::after {
+        content: none;
+      }
+      .roadmap-vline {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+      .roadmap-vline::before, .roadmap-vline::after {
+        content: "";
+        position: absolute;
+        left: 5px;
+        width: 4px;
+        background: #f74cac;
+      }
+      .roadmap-vline::before {
+        top: 0;
+        bottom: calc(50% + 14px / 2 + 10px);
+      }
+      .roadmap-vline::after {
+        top: calc(50% + 14px / 2 + 10px);
+        bottom: 0;
+      }
+      @import url('https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i');
+
+/*Reset*/
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+  color: #1f4568;
+}
+
+body{
+background-image: url("https://image.ibb.co/de6JzG/bitmap_1_1.png");
+  background-size:cover;
+  background-repeat:no-repeat;
+  background-position: center;
+}
+
+/* colors 8a3aff, 6f79ff, 3a9fff black-> 1f4568  grey->8198ae*/
+.sect{
+  padding: 90px 0;
+  position: relative;
+}
+
+
+.collapse{
+ display: block;
+}
+
+.sect--grey{
+  /*background-color: #ebeff9;*/
+}
+
+.sect--violet{
+  background-color:#6f79ff;
+}
+
+.sect--padding-bottom{
+  padding-bottom:115px;
+}
+
+.sect--padding-top{
+  padding-top:90px;
+}
+
+.row--center{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.row--margin{
+  margin-top:45px;
+}
+
+.row__title{
+  text-align: center;
+  font-size: 26px;
+  font-weight: 400;
+  margin-top: 0px;
+}
+
+.row__sub{
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0px; 
+  color: #8198ae;
+}
+
+.price-box{
+  padding: 0px 25px;  
+}
+
+.price-box__wrap{
+  background-color: #fff;
+  border-radius:6px;
+  box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2); /*0px 22px 20px -10px rgba(0, 0, 0,0.2)*/
+  padding: 35px 35px 40px 35px;
+  text-align:center;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+
+.price-box__img{
+  display: inline-block;
+}
+
+.price-box__img{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  background-position: center;
+    background-size:cover;
+  background-repeat:no-repeat;
+}
+
+
+
+.price-box--purple .price-box__img{
+  background-image: url("https://image.ibb.co/iGjEKG/1.png");
+
+}
+
+
+.price-box--violet .price-box__img{
+  background-image: url("https://image.ibb.co/iyT8eG/2.png");
+
+}
+
+.price-box--blue .price-box__img{
+  background-image: url("https://preview.ibb.co/nDRpmw/3.png");
+
+}
+
+.price-box__title{
+  font-size:22px;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+
+.price-box__people{
+  font-size:12px;
+  color:#8198ae;
+  font-weight: 300;
+  letter-spacing:1px;
+}
+.price-box__discount{
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.price-box__dollar {
+    font-size: 18px;
+    font-weight: 400;
+    vertical-align: top;
+    margin-right: 4px;
+}
+
+.price-box--purple .price-box__dollar{
+  color: #8a3aff;
+}
+
+.price-box--violet .price-box__dollar{
+  color: #6f79ff;
+}
+
+.price-box--blue .price-box__dollar{
+  color: #3a9fff;
+}
+
+.price-box__discount--light{
+  font-weight: 400;
+  font-size: 20px;
+  margin-left: 3px;
+}
+
+.price-box__price {
+    margin-top: 3px;
+    font-size: 14px;
+    color: #8198ae;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    font-weight: 300;
+    text-decoration: line-through;
+}
+
+.price-box__feat {
+    margin-top: 30px;
+    font-size: 16px;
+}
+
+.price-box__list {
+    text-align: left;
+    padding-left: 30px;
+    margin: 0;
+    list-style: none;
+}
+
+.price-box__list-el{
+  position: relative;
+  margin-bottom: 8px;
+  font-weight: 300;
+}
+
+.price-box__list-el:before{
+  content: "✓";
+  position: absolute;
+  left: -25px;
+  font-size: 18px;
+  top: -4px;
+}
+
+.price-box--purple .price-box__list-el:before{
+  color: #8a3aff;
+}
+
+.price-box--violet .price-box__list-el:before{
+  color: #6f79ff;
+}
+
+.price-box--blue .price-box__list-el:before{
+  color: #3a9fff;
+}
+
+.price-box__wrap:hover {
+  backface-visibility: hidden;
+  transform: scale(1.05, 1.05);
+  box-shadow: 0px 30px 18px -8px rgba(0, 0, 0,0.1);
+}
+
+.btn{
+  background-color:#3a9fff;
+  border-radius: 20px;
+  padding: 10px 25px;
+  color: #fff;
+  box-shadow: 0px 18px 13px -6px rgba(0, 0, 0,0.2);
+  transition: all 0.4s;
+-webkit-transition: all 0.4s;
+-moz-transition: all 0.4s;
+-ms-transition: all 0.4s;
+-o-transition: all 0.4s;
+}
+
+
+
+.btn:hover{
+box-shadow: 0px 25px 18px -6px rgba(0, 0, 0,0.2);
+background-color: #63b2fc;
+color: #fff;
+}
+
+.price-box__wrap:hover .btn {
+  box-shadow: 0px 25px 18px -6px rgba(0, 0, 0,0.2);
+}
+
+.btn--revert{
+    background-color:transparent;
+    color: #8198ae;
+    box-shadow: none;
+    border:1px solid #c9d9e9;
+}
+
+.btn--revert:hover{
+    background-color:transparent;
+    color: #1f4568;
+    box-shadow: none;
+    border:1px solid #8198ae;
+}
+
+
+.btn--purple {
+    background-color: #8a3aff;
+}
+
+.btn--purple:hover{
+    background-color: #b284f6;
+}
+
+.btn--violet {
+    background-color: #6f79ff;
+}
+.btn--violet:hover {
+    background-color: #878ef3;
+}
+
+.btn--blue {
+    background-color: #3a9fff;
+}
+.btn--blue:hover {
+    background-color: #63b2fc;
+}
+.btn--width{
+  width: 120px;
+}
+
+.btn--white{
+  background-color: #fff;
+  border: 1px solid #ededed;
+  color: #8198ae;
+}
+
+.btn--white:hover{
+  background-color: #fff;
+  color: #8198ae;
+}
+
+.price-box__btn {
+    position: absolute;
+    bottom: -17px;
+    left: 50%;
+    margin-left: -55px;
+}
+
+.row__sub--light{
+  color: #aec0d2;
+}
+.item__img{
+  width:25px;
+  margin-right:10px;
+}
+
+.carousel{
+    
+}
+
+.row__carousel{
+  display:inline-block;
+  float:none;
+  border-radius: 6px;
+}
+.row--text-center{
+  text-align:center;
+
+}
+.carousel-control{
+  opacity:1;
+  background-image:none !important;
+}
+
+.carousel-control.left{
+  left:-100px;
+}
+
+.carousel-control.right{
+  right:-100px;
+}
+
+.carousel-inner{
+  margin-top: -25px;
+}
+.carousel-control__img{
+ position: absolute;
+top: 50%;
+margin-top: -90px;
+}
+
+.carousel-control.left .carousel-control__img{
+  left:0;
+}
+
+.carousel-control.right .carousel-control__img{
+  right:0;
+}
+
+.carousel-indicators li{
+  height:12px;
+  width:12px;
+    background-color: #fff;
+    border: 2px solid #8198ae;
+  margin-right:8px;
+}
+
+.carousel-indicators li.active{
+  height:14px;
+  width:14px ;
+    background-color: #fff;
+    border: 3px solid #6f79ff;
+  margin-right:10px;
+}
+.item {
+  text-align:left;
+  position:relative;
+  padding:25px 15px 0px 25px;
+}
+
+.item__content{
+padding: 40px;
+border-radius: 6px;
+box-shadow:  0 4px 8px 0px rgba(0,0,0,0.2);
+background-color: #fff;
+position: relative;
+  height: 305px;
+}
+.item__img{
+ display:inline-block;
+}
+.item__name{
+display: inline-block;
+font-size: 22px;
+vertical-align: middle;
+font-weight: 700;
+}
+.item__description {
+    margin-top: 35px;
+    color: #8198ae;
+    line-height: 23px;
+}
+.item__avatar{
+height: 45px;
+width: 45px;
+background-image: url("https://static.pexels.com/photos/428333/pexels-photo-428333.jpeg");
+background-size: cover;
+border-radius: 50%;
+margin: 50px auto 15px auto;
+
+}
+
+.carousel-indicators {
+    width: auto;
+    margin: 0;
+    right: 68px;
+    text-align: right;
+    top: 72px;
+  left: auto;
+  bottom: auto;
+}
+.item__content:after{
+content: "";
+width: 0;
+height: 0;
+border-left: 20px solid transparent;
+border-right: 20px solid transparent;
+border-top: 20px solid #fff;
+bottom: -20px;
+position: absolute;
+left: 50%;
+margin-left: -23px;
+filter: drop-shadow(0px 7px 4px rgba(0,0,0,.2));
+}
+
+.item__people {
+    margin: 0;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.item__occupation {
+    font-size: 14px;
+    color: #8198ae;
+    text-align: center;
+}
+
+.site{
+  text-align: center;
+}
+.site__title{
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+}
+
+.site__subtitle{
+    font-size: 22px;
+    color: #8198ae;
+    margin: 15px 0 40px 0;
+    text-align: center;
+}
+
+.site__img{
+  margin-top: 50px;
+  display: inline-block;
+  width: 77%;
+}
+.site__box-link .btn--revert{
+  margin-left: 15px;
+}
+
+
+/*menu header*/
+.header{
+  padding: 30px 25px;
+}
+.header__elenco {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.header__menu {
+    float: right;
+}
+.header__el{
+    padding: 0 25px;
+    display: inline-block;
+}
+.header__img{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header__logo, .header__menu{
+  display: inline-block;
+  vertical-align: middle;
+}
+.header__title{
+  font-size: 18px;
+  margin: 0;
+  margin-left: 10px;
+  display: inline-block;
+  line-height: 18px;
+  vertical-align: middle;
+}
+
+.header__light{
+  color: #8198ae;
+}
+.header__link{
+  color: #1f4568;
+  font-size: 14px;
+
+}
+.header__link:hover{
+  text-decoration: none;
+  color:#3a9fff;
+}
+.navbar-toggle .icon-bar{
+  background-color: #8198ae;
+}
+.navbar-toggle {
+    margin: 5px 0;
+}
+.partner{
+  margin-bottom:15px;
+  text-align:center;
+}
+.partner_img{
+  width:160px;
+  opacity:0.5;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+}
+
+.sect--no-padding{
+  padding-top:0;
+}
+
+.partner_img:hover{    
+    transform: scale(1.08, 1.08);
+  opacity:0.9;
+}
+
+.article-pre__col{
+  padding:0 30px;
+  margin-bottom:30px;
+}
+
+.article-pre__img {
+    height: 0;
+    background-position: center;
+    background-size: cover;
+    padding-bottom: 55%;
+    border-radius: 6px;
+  box-shadow: 0 4px 10px 2px rgba(0,0,0,0.3);
+  transition: all 0.4s;
+-webkit-transition: all 0.4s;
+-moz-transition: all 0.4s;
+-ms-transition: all 0.4s;
+-o-transition: all 0.4s;
+}
+
+.article-pre__img--first{
+   background-image: url();
+}
+
+.article-pre__img--second{
+  background-image: url();  
+}
+
+.article-pre__img--third{
+  background-image:   url();  
+}
+
+.article-pre__img--fourth{
+  background-image: url();  
+}
+
+.article-pre:hover .article-pre__img {
+  box-shadow: 0px 10px 13px 4px rgba(0, 0, 0,0.2);
+}
+
+.article-pre:hover {
+  text-decoration:none;
+}
+.article-pre__info {
+    font-size: 16px;
+    color: #8198ae;
+  margin: 0;
+padding: 25px 25px 0 25px;
+}
+
+.article-pre__date {
+    float: right;
+}
+
+.article-pre__title {
+font-size: 20px;
+color: #1f4568;
+margin: 0;
+padding: 15px 25px;
+}
+
+.article-pre__arrow--purple{
+  color: #8a3aff;
+}
+
+.contacts_title-ag {
+    margin: 0;
+        margin-left: 0px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 22px;
+    margin-left: 10px;
+}
+
+.contacts__link{
+  color: #1f4568;
+}
+
+.contacts--light {
+    color: #8198ae;
+}
+
+.contacts__address {
+margin-top: 20px;
+color: #8198ae;
+font-size: 16px;
+line-height: 27px;
+padding-bottom: 12px;
+margin-bottom: 17px;
+  position: relative;
+}
+
+.contacts__address:after{
+  content: '';
+position: absolute;
+width: 20px;
+height: 1px;
+background-color: #8198ae;
+bottom: 0;
+left: 0;
+}
+.contacts__info {
+    color: #8198ae;
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+.contacts__info-link {
+    color: #3a9fff;
+  text-decoration:none;
+}
+
+.form-group {
+    margin-bottom: 20px;
+display: table;
+width: 100%;
+  position:relative;
+}
+
+.form__field {
+    height: 50px;
+  position:relative;
+    border: none;
+    padding: 10px 12px;   
+  width: 100%;
+  border-radius:6px;
+  appearance: none;
+        -moz-appearance: none;
+        -webkit-appearance: none;
+        -ms-appearance:none;
+        -o-appearance: none;
+  box-shadow: 0 4px 8px 0px rgba(0,0,0,0.2);
+  transition: all 0.4s;
+          -webkit-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          -ms-transition: all 0.4s;
+          -o-transition: all 0.4s;
+  z-index: 2;
+}
+
+.form__select {
+    background-image: url('http://www.austinlawrencepartners.com/wp-content/uploads/arrow-down-gray-hi.png');
+    background-repeat: no-repeat;
+    background-size: 10px;
+    background-position-x: 97%;
+    width: 100%;
+    padding-right: 30px;
+    background-position-y: center;
+    background-color:#fff;
+  color: #8198ae;
+}
+
+.form__field--half{
+  width:50%;
+  float:left;
+}
+
+.form__field--half:first-of-type{
+  padding-right:15px;
+}
+
+
+.form__textarea{
+  height:200px;
+}
+
+.btn--up{
+  position: absolute;
+bottom: -15px;
+right: 25px;
+  z-index: 3;
+}
+
+.career_title {
+    color: #fff;
+    font-size: 28px;
+}
+
+.career_sub {
+    font-size: 22px;
+    color: #c7cbff;
+    margin-top: 0;
+    margin-bottom: 30px;
+}
+
+.career-img {
+    position: absolute;
+    bottom: 0;
+width: 65%;
+z-index: 0;
+left: 20%;
+}
+
+
+.footer{
+ background-color: #1f4467; 
+  padding: 40px 0; 
+}
+
+.footer__title{
+  font-size: 18px;
+margin: 0;
+    margin-left: 0px;
+margin-left: 10px;
+display: inline-block;
+line-height: 18px;
+vertical-align: middle;
+  color:#3a9fff;
+}
+
+.footer__light{
+   color:#fff;
+}
+
+.footer__social {
+    float: right;
+    margin-right: 50px;
+}
+
+.footer__social-l {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+@media screen and (max-width:1024px){
+  .collapse{
+ display: none;
+}
+  .navbar-toggle {
+    margin: 0;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+  .header__container{
+    width: 100%;
+    padding: 0;
+  }
+  .header__menu {
+    width: 100%;
+}
+  .header{
+    background-color:#fff; 
+    padding: 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 4;
+  }
+  .header__logo{
+    padding: 12px 20px 12px 20px;
+  }
+  .header__el {
+    display: block;
+    padding: 10px 20px;
+    border-top: 1px solid #ededed;
+}
+  
+  .header .btn--white, .header .btn--white:hover{
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    color:#fff;
+    background-color:transparent;
+  }
+  .header__el--blue{
+    background-color:#3a9fff;
+  }
+
+}
+
+
+@media screen and (max-width:991px){
+  .price-box {
+    padding: 0px 10px;
+  }
+  .carousel-control.left{
+    left: -25px;
+  }
+  .carousel-control.right {
+    right: -25px;
+}
+  .item__content {
+    height: auto;
+}
+}
+
+@media screen and (max-width:767px){
+  .footer {
+    padding: 25px 0;
+  }
+  .price-box {
+    padding: 0px 35px;
+    margin-bottom: 50px;
+  }
+  .site__img{
+    width: 100%;
+  }
+  .item__content{
+    padding: 20px;
+   
+  }
+  .item__description {
+    font-size: 12px;
+    line-height: 20px;
+}
+.article-pre__info {
+    padding: 25px 10px 0 10px;
+    font-size: 14px;
+}
+  .article-pre__title {
+    padding: 10px 10px;
+    font-size: 16px;
+}
+  .form {
+    margin-top: 30px;
+}
+  .form__field--half:first-of-type {
+    margin-bottom: 10px;
+    padding-right: 0px;
+}
+
+.form__field--half {
+    width: 100%;
+    float: none;
+}
+  .form-group {
+    margin-bottom: 10px;
+  }
+}
+
+
+
+@media screen and (max-width:480px){
+  .price-box {
+    padding: 0px 20px;
+  }
+  .carousel-control__img{
+    width: 20px;
+  }
+  .carousel-control.left {
+    left: -5px;
+  }
+  .carousel-control.right {
+    right: -5px;
+  }
+  .partner {
+    width: 100%;
+  }
+  .footer {
+    padding: 15px 0;
+  }
+  .footer__img {
+    width: 15px;
+  }
+  .footer__title {
+    font-size: 16px;
+    margin-left: 5px;
+  }
+  .sect {
+    padding: 20px 0;
+  }
+  .sect--padding-top{
+    padding-top: 80px;
+  }
+  .row__sub {
+    font-size: 16px;
+   }
+  .row__title {
+    font-size: 20px;
+    margin-bottom: 0px;
+   }
+  .price-box__title {
+    font-size: 18px;
+    margin-top: 10px;
+}
+  .price-box__img {
+    width: 100px;
+    height: 100px;
+  }
+  .price-box__wrap {
+    padding: 20px 20px 30px 20px;
+  }
+  .price-box__people {
+    font-size: 10px;
+    font-weight: 400;
+  }
+  .price-box__discount {
+    font-size: 22px;
+  }
+  .price-box__price {
+    font-size: 12px;
+  }
+  .price-box__feat {
+      margin-top: 15px;
+      font-size: 14px;
+  }
+  .price-box__list-el {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+  .site__title {
+    font-size: 24px;
+}
+  .site__subtitle {
+    font-size: 18px;
+    margin: 10px 0 20px 0;
+  }
+  .site__img {
+    margin-top: 30px;
+  }
+  .row--margin {
+    margin-top: 30px;
+}
+  .btn {
+    font-size: 12px;
+    padding: 8px 8px;
+}
+  .btn--width {
+    width: 100px;
+}
+  .career_title {
+    font-size: 18px;
+margin-top: 0;
+}
+  .career_sub {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+  .carousel-indicators {
+    display: none;
+}
+  .item__name {
+    font-size: 18px;
+}
+  .item__description {
+    margin-top: 18px;
+}
+  .article-pre__date {
+    font-size: 12px;
+    float: none;
+}
+ 
+
+}
+</style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" type="image/x-icon" href="https://image.ibb.co/fOur3b/favicon.png"/>
+<meta name="theme-color" content="#1885ed">
+  <title>Homepage</title>
+</head>
+
+<body>
+<header class="header" style="margin-bottom: 0px; padding-bottom: 0px;">
+  <div class="container header__container">
+    <div class="header__logo"><img class="header__img" src="../static/images/Icon.png" style="width: 50px; height: 50px;"> <h1 class="header__title">Farmer<span class="header__light">.co</span></h1></div> 
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+             <span class="sr-only">Toggle navigation</span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+  
+  <div class="header__menu">
+    <nav id="navbar" class="header__nav collapse">
+      <ul class="header__elenco">
+        <li class="header__el"><a href="{% url 'news' %}" class="header__link">News</a></li>
+        <li class="header__el"><a href="{% url 'forum' %}" class="header__link">Blog</a></li>
+        <li class="header__el"><a href="#contactus" class="header__link">Contact us</a></li>
+        <li class="header__el header__el--blue"><a href="https://django-ecommerce-marketplace.vercel.app/" class="btn btn--white">Market Place →</a></li>
+      </ul>
+    </nav>
+  </div>
+    </div>
+</header>
+
+
+<!-----------------------Weather----------------------------->
+
+<div class="sect sect--padding-top" style="padding-bottom: 0px;">
+  <div class="container" id="wrapper" style="background-color: #28688C; box-shadow: 1px 5px 25px 3px #444; border-radius: 10px; max-width: 1100px; margin-top: 0px; margin-bottom: 0px; padding: 0px; color: white;">
+    <div class="container-fluid" id="current-weather" style="padding: 15px;">
+      <div class="row">
+        <div class="col-md-4 col-sm-5">
+          <h5><span id="cityName"></span>, <span id="cityCode"></span></h5>
+          <h6 id="localDate"></h6>
+          <h5 id="localTime"></h5>
+          <a id="refreshButton" href="#"><i class="fa fa-refresh fa-fw" aria-hidden="true"></i> Refresh</a>
+        </div>
+        <div class="col-md-5 col-sm-7" style="margin: 10px auto; padding: 0;">
+          <div class="row" style="display: flex; justify-content: center;">
+            <i class="wi" id="main-icon" style="font-size: 85px;"></i>
+            <div>
+              <span id="mainTemperature" style="font-size: 5.5em; line-height: 0.7;"></span>
+              <p id="tempDescription" style="margin-top: 10px; text-align: center;"></p>
+            </div>
+            <p style="font-size: 1.5rem;"><a href="#" class="active" id="celcius">°C</a> | <a href="#" id="farenheit">°F</a></p>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-3 row" style="text-align: right;">
+          <div class="col-md-12 col-sm-3 col-xs-3 side-weather-info" style="padding: 0px 10px;">
+            <h6>Humidity: <span id="humidity"></span>%</h6>
+          </div>
+          <div class="col-md-12 col-sm-3 col-xs-3 side-weather-info" style="padding: 0px 10px;">
+            <h6>Wind: <span id="wind"></span> m/s</h6>
+          </div>
+          <div class="col-md-12 col-sm-3 col-xs-3 side-weather-info" style="padding: 0px 10px;">
+            <h6>High: <span id="mainTempHot"></span>°</h6>
+          </div>
+          <div class="col-md-12 col-sm-3 col-xs-3 side-weather-info" style="padding: 0px 10px;">
+            <h6>Low: <span id="mainTempLow"></span>°</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="protocol-modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <div class="modal-body">
+            <p>Due to weather api restrictions, data can only be shown via HTTP request.</p>
+            <p>Sorry for the inconvenience.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row" style="padding: 20px;">
+        <div class="col-md-3 col-sm-6 day-weather-box" style="border: 1px solid #28688C; background-color: #2E7FA1; border-radius: 5px; height: 7em;">
+          <div class="col-sm-12 day-weather-inner-box" style="display: inline-flex; margin: 14px auto; padding: 0px 5px;">
+            <div class="col-sm-8 forecast-main">
+              <p id="forecast-day-1-name"></p>
+              <div class="row">
+                <h5 id="forecast-day-1-main">°</h5>
+                <i class="wi forecast-icon" id="forecast-day-1-icon" style="font-size: 25px; margin-left: 5px;"></i>
+              </div>
+            </div>
+            <div class="col-sm-4 forecast-min-low">
+              <p><span class="high-temperature" id="forecast-day-1-ht"></span></p>
+              <p><span class="low-temperature" id="forecast-day-1-lt"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 day-weather-box" style="border: 1px solid #28688C; background-color: #2E7FA1; border-radius: 5px; height: 7em;">
+          <div class="col-sm-12 day-weather-inner-box" style="display: inline-flex; margin: 14px auto; padding: 0px 5px;">
+            <div class="col-sm-8 forecast-main">
+              <p id="forecast-day-2-name"></p>
+              <div class="row">
+                <h5 id="forecast-day-2-main">°</h5>
+                <i class="wi forecast-icon" id="forecast-day-2-icon" style="font-size: 25px; margin-left: 5px;"></i>
+              </div>
+            </div>
+            <div class="col-sm-4 forecast-min-low">
+              <p><span class="high-temperature" id="forecast-day-2-ht"></span></p>
+              <p><span class="low-temperature" id="forecast-day-2-lt"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 day-weather-box" style="border: 1px solid #28688C; background-color: #2E7FA1; border-radius: 5px; height: 7em;">
+          <div class="col-sm-12 day-weather-inner-box" style="display: inline-flex; margin: 14px auto; padding: 0px 5px;">
+            <div class="col-sm-8 forecast-main">
+              <p id="forecast-day-3-name"></p>
+              <div class="row">
+                <h5 id="forecast-day-3-main">°</h5>
+                <i class="wi forecast-icon" id="forecast-day-3-icon" style="font-size: 25px; margin-left: 5px;"></i>
+              </div>
+            </div>
+            <div class="col-sm-4 forecast-min-low">
+              <p><span class="high-temperature" id="forecast-day-3-ht"></span></p>
+              <p><span class="low-temperature" id="forecast-day-3-lt"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 day-weather-box" style="border: 1px solid #28688C; background-color: #2E7FA1; border-radius: 5px; height: 7em;">
+          <div class="col-sm-12 day-weather-inner-box" style="display: inline-flex; margin: 14px auto; padding: 0px 5px;">
+            <div class="col-sm-8 forecast-main">
+              <p id="forecast-day-4-name"></p>
+              <div class="row">
+                <h5 id="forecast-day-4-main">°</h5>
+                <i class="wi forecast-icon" id="forecast-day-4-icon" style="font-size: 25px; margin-left: 5px;"></i>
+              </div>
+            </div>
+            <div class="col-sm-4 forecast-min-low">
+              <p><span class="high-temperature" id="forecast-day-4-ht"></span></p>
+              <p><span class="low-temperature" id="forecast-day-4-lt"></span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!----------Crop------------->
+<div class="sect" style="margin-top: 0px; padding-top: 40px;">
+<div class="container">
+  <div style="text-align: center;">
+    <h1 class="row__title" style="display: inline-block;">Crops</h1>
+    <!-- Add your crops content here -->
+  </div>
+  <div style="text-align: center;">
+    <h2 class="row__sub" style="display: inline-block; padding-left: 20px;">Crop which are suitable as per your location:</h2>
+    <!-- Add your crops content here -->
+  </div>
+<div class="cards-container" style="margin-top: 30px;">
+  <!-- Service 1 -->
+  <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg position-relative"
+    style="background-image: url('../static/images/Wheat.png');">
+    <div class="d-flex flex-column h-100 p-5 text-white text-shadow-1">
+      <h3 class="mt-auto mb-4 display-6 lh-1 fw-bold" style="color: white;">Wheat</h3>
+      <div class="description">
+        <p style="color: white;">
+          Price of seeds: ₹40 per kg<br>
+          Expected Profit: ₹30,000 per acre<br>
+          Soil type preferred: Loam
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service 2 -->
+  <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg position-relative"
+    style="background-image: url('../static/images/Rice.png');">
+    <div class="d-flex flex-column h-100 p-5 text-white text-shadow-1">
+      <h3 class="mt-auto mb-4 display-6 lh-1 fw-bold" style="color: white;">Rice</h3>
+      <div class="description">
+        <p style="color: white;">
+          Price of seeds: ₹60 per kg<br>
+          Expected Profit: ₹25,000 per acre<br>
+          Soil type preferred: Clayey loam
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service 3 -->
+  <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg position-relative"
+    style="background-image: url('../static/images/Rice.png');">
+    <div class="d-flex flex-column h-100 p-5 text-white text-shadow-1">
+      <h3 class="mt-auto mb-4 display-6 lh-1 fw-bold" style="color: white;">Maize</h3>
+      <div class="description">
+        <p style="color: white;">
+          Price of seeds: ₹150 per kg<br>
+          Expected Profit: ₹20,000 per acre<br>
+          Soil type preferred: Well-drained fertile soil
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service 4 -->
+  <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg position-relative"
+    style="background-image: url('../static/images/Millet.png');">
+    <div class="d-flex flex-column h-100 p-5 text-white text-shadow-1">
+      <h3 class="mt-auto mb-4 display-6 lh-1 fw-bold" style="color: white;">Millet</h3>
+      <div class="description">
+        <p style="color: white;">
+          Price of seeds: ₹150 per kg<br>
+          Expected Profit: ₹20,000 per acre<br>
+          Soil type preferred: Well-drained fertile soil
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-----------------------RoadMap------------------------------->
+
+<!-- partial:index.partial.html -->
+<div class="roadmap">
+  <div class="roadmap-bg"></div>
+  <h1 class="roadmap-title">Roadmap</h1>
+  <ol class="roadmap-timeline js-roadmap-timeline">
+
+    <li class="roadmap-timeframe js-roadmap-timeframe">
+      <div class="roadmap-date">Prepare soil</div>
+      <svg class="roadmap-swirly" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="-2 0 54 80"><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path></svg>
+      
+      <ul class="roadmap-events">
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Remove weeds and debris from the field</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Test soil pH and fertility</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Add organic matter like compost or manure</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Plow and till the soil to break it up and aerate it</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Level the field for uniform irrigation.</li>
+      </ul>
+    </li>
+
+    <li class="roadmap-timeframe js-roadmap-timeframe">
+      <div class="roadmap-date">Plant Seeds</div>
+      <svg class="roadmap-swirly" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="-2 0 54 80"><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path></svg>
+      <ul class="roadmap-events">
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Select high-quality seeds suitable for the climate and soil</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Treat seeds with fungicides or insecticides if necessary</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Sow seeds at the right depth and spacing</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Use proper planting techniques (direct seeding or transplanting)</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Protect seeds from pests and birds</li>
+      </ul>
+    </li>
+
+    <li class="roadmap-timeframe js-roadmap-timeframe">
+      <div class="roadmap-date">Water Plants</div>
+      <svg class="roadmap-swirly" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="-2 0 54 80"><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path></svg>
+      <ul class="roadmap-events">
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Set up an efficient irrigation system (drip, sprinkler, or furrow)</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Water plants regularly according to their needs</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Monitor soil moisture levels</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Adjust watering based on weather conditions.</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Avoid overwatering to prevent root rot</li>
+      </ul>
+    </li>
+
+    <li class="roadmap-timeframe js-roadmap-timeframe">
+      <div class="roadmap-date">Fertilize Crops</div>
+      <svg class="roadmap-swirly" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="-2 0 54 80"><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path></svg>
+      <ul class="roadmap-events">
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Apply the right type and amount of fertilizer based on soil tests</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Use a balanced fertilizer containing nitrogen, phosphorus, and potassium</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Schedule fertilization at critical growth stages</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Consider using organic fertilizers or compost</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Ensure even distribution of fertilizer across the field</li>
+      </ul>
+    </li>
+
+    <li class="roadmap-timeframe js-roadmap-timeframe">
+      <div class="roadmap-date">Harvest Crops</div>
+      <svg class="roadmap-swirly" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="none" viewBox="-2 0 54 80"><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path><path d="m50,80c0,-21 -49,-26 -49,-59c0,-13 0,-19 -0,-19"></path></svg>
+      <ul class="roadmap-events">
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Monitor crop maturity and readiness for harvest</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Use appropriate harvesting tools and machinery</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Harvest crops during the cooler part of the day to reduce stress</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Handle crops carefully to avoid damage</li>
+        <li class="roadmap-event"><div class="roadmap-vline"></div>Store harvested crops in a cool, dry place to maintain quality.
+        </li>
+      </ul>
+    </li>
+
+</ol>
+</div>
+
+
+
+<div class="sect sect--white">
+<div class="container">
+  <div style="text-align: center;">
+    <h1 class="row__title" style="display: inline-block; margin-left: 25px;">Statistical Data</h1>
+    <!-- Add your crops content here -->
+  </div>
+  <div style="text-align: center;">
+    <h2 class="row__sub" style="display: inline-block; padding-left: 20px;">Local to your region</h2>
+  </div>
+<!--   
+  <div class="row row--margin">
+    <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre ">
+        <div class="article-pre__img article-pre__img--first"></div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat">Protips • </span><span class="article-pre__aut"> by Ann Timothy</span> <span class="article-pre__date"> - 5 mins read</span>
+        </h2>
+        <h1 class="article-pre__title">How to improve analytics using few tools in Bricks<span class="article-pre__arrow--purple"> →</span></h1>
+      </a>
+    </div>
+    
+        <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre ">
+        <div class="article-pre__img article-pre__img--second"></div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat">Pricing • </span><span class="article-pre__aut"> by Josh Ford</span> <span class="article-pre__date"> - 5 mins read</span>
+        </h2>
+        <h1 class="article-pre__title">Rich Thornett & Dan Coderholm about Dribbble in early 2009<span class="article-pre__arrow--purple">→</span></h1>
+      </a>
+    </div>    
+ </div>
+  <div class="row">
+     <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre ">
+        <div class="article-pre__img article-pre__img--fourth"></div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat">Success Stories • </span><span class="article-pre__aut"> by Andrew Lincoln</span> <span class="article-pre__date"> - 5 mins read</span>
+        </h2>
+        <h1 class="article-pre__title">Steward Butterfield told us about his startup Slack<span class="article-pre__arrow--purple"> →</span></h1>
+      </a>
+    </div>
+    
+        <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre ">
+        <div class="article-pre__img article-pre__img--third"></div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat">Protips • </span><span class="article-pre__aut"> by Ann Timothy</span> <span class="article-pre__date"> - 5 mins read</span>
+        </h2>
+        <h1 class="article-pre__title">How to improve analytics using few tools in Bricks<span class="article-pre__arrow--purple"> →</span></h1>
+      </a>
+    </div>     
+  </div> -->
+  <div class="row row--margin">
+    <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre">
+        <div class="article-pre__img article-pre__img--first">
+          <canvas id="myChart1" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat"> </span><span class="article-pre__aut"> </span> <span class="article-pre__date"> </span>
+        </h2>
+        <h1 class="article-pre__title">Distribution of production among different crops<span class="article-pre__arrow--purple"> </span></h1>
+      </a>
+    </div>
+    
+    <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre">
+        <div class="article-pre__img article-pre__img--second">
+          <canvas id="myChart2" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat"> </span><span class="article-pre__aut"> </span> <span class="article-pre__date"> </span>
+        </h2>
+        <h1 class="article-pre__title">Yield trends over varying scales for multiple crops<span class="article-pre__arrow--purple"> </span></h1>
+      </a>
+    </div>    
+  </div>
+  <div class="row">
+    <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre">
+        <div class="article-pre__img article-pre__img--fourth">
+          <canvas id="myChart3" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat"> </span><span class="article-pre__aut"> </span> <span class="article-pre__date"> </span>
+        </h2>
+        <h1 class="article-pre__title">Market price trends over time for various crops<span class="article-pre__arrow--purple"> </span></h1>
+      </a>
+    </div>
+    
+    <div class="col-md-6 article-pre__col">
+      <a href="#" class="article-pre">
+        <div class="article-pre__img article-pre__img--third">
+          <canvas id="myChart4" style="width:100%;max-width:600px"></canvas>
+        </div>
+        <h2 class="article-pre__info">
+          <span class="article-pre__cat"> </span><span class="article-pre__aut"> </span> <span class="article-pre__date"> </span>
+        </h2>
+        <h1 class="article-pre__title">Water requirements over time for different crops<span class="article-pre__arrow--purple"> </span></h1>
+      </a>
+    </div>     
+  </div>
+  
+  <script>
+    const xValues = ["Wheat", "Maize", "Rice", "Millet"];
+    const yValues = [250, 300, 350, 100]; // example data for crop production
+    const barColors = [
+      "#b91d47", // Wheat
+      "#00aba9", // Maize
+      "#2b5797", // Rice
+      "#e8c3b9"  // Millet
+    ];
+  
+  function createChart(chartId) {
+    new Chart(chartId, {
+      type: "pie",
+      data: {
+        labels: xValues,
+        datasets: [{
+          backgroundColor: barColors,
+          data: yValues
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Crop Production in your Region"
+        }
+      }
+    });
+  }
+  
+  // Create charts for all four canvases
+  createChart("myChart1");
+ 
+  </script>
+  <script>
+    const xValuess = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+    
+    function createChartt(chartId, title, data1, data2, data3,data4) {
+      new Chart(chartId, {
+        type: "line",
+        data: {
+          labels: xValuess,
+          datasets: [{ 
+            label: "Wheat",
+            data: data1,
+            borderColor: "#b91d47",
+            fill: false
+          }, { 
+            label: "Rice",
+            data: data2,
+            borderColor: "#00aba9",
+            fill: false
+          }, { 
+            label: "Maize",
+            data: data3,
+            borderColor:  "#2b5797",
+            fill: false
+          },
+          { 
+            label: "Millet",
+            data: data4,
+            borderColor: "#e8c3b9",
+            fill: false
+          }]
+        },
+        options: {
+          legend: {
+            display: true
+          },
+          title: {
+            display: true,
+            text: title
+          }
+        }
+      });
+    }
+    
+  
+    
+   // Chart 1: Yield Comparison
+createChartt("myChart2", 'Crop Yield Comparison (tons/ha)',
+[2.5, 2.6, 2.7, 2.8, 2.9, 3.0, 3.1, 3.2, 3.3, 3.4], // Wheat
+  [3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 4.1, 4.2, 4.3, 4.4], // Maize
+  [4.5, 4.6, 4.7, 4.8, 4.9, 5.0, 5.1, 5.2, 5.3, 5.4], // Rice
+  [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9], //Millet
+  "#b91d47", "#00aba9", "#2b5797", "#e8c3b9"
+);
+
+    
+   // Chart 2: Market Price Trends
+createChartt("myChart3", 'Market Price Trends (INR/ton)',
+[18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000, 26000, 27000], // Wheat
+[15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000], // Maize
+[22000, 23000, 24000, 25000, 26000, 27000, 28000, 29000, 30000, 31000], // Rice
+[14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000],  // Millet
+"#b91d47", "#00aba9", "#2b5797", "#e8c3b9"
+);
+
+// Chart 3: Water Requirement Comparison
+createChartt("myChart4", 'Water Requirement Comparison (liters/ha)',
+[4500, 4700, 4900, 5000, 4600, 4800, 5000, 5100, 4700, 4900], // Wheat
+[3500, 3700, 3900, 4000, 3600, 3800, 4000, 4100, 3700, 3900], // Maize
+[5000, 5200, 5400, 5500, 5100, 5300, 5500, 5600, 5200, 5400], // Rice
+[2500, 2700, 2900, 3000, 2600, 2800, 3000, 3100, 2700, 2900],  // Millet
+  "#b91d47", "#00aba9", "#2b5797", "#e8c3b9"
+);
+    </script>
+</div>
+</div>
+
+<div class="sect sect--padding-bottom" id="contactus" style="margin-top: 0px; padding-top: 0px;">
+  <div class="container">
+    <div style="text-align: center;">
+      <h1 class="row__title" style="display: inline-block;">Contact Us</h1>
+      <!-- Add your crops content here -->
+    </div>
+    <div style="text-align: center;">
+      <h2 class="row__sub" style="display: inline-block; padding-left: 20px;">Feel free to ask any questions</h2>
+    </div>
+    <div class="row row--margin">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+        <div class="contacts">
+          <a href="#" class="contacts__link">
+            <img src="../static/Images/Icon.png" style="height: 50px; width: 50px;">
+          <h1 class="contacts_title-ag">Farmer<span class="contacts--light">.co</span></h1></a>
+          <p class="contacts__address">
+            123 MG Road, Sector 10<br>
+            New Delhi, Delhi 11000<br>
+            India
+          </p>
+          <p class="contacts__info">
+            tel. <a href="#" class="contacts__info-link">+91 1234567890</a>
+          </p>
+          <p class="contacts__info">
+            m. <a href="#"class="contacts__info-link">info@farmer.co</a>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form id="contact" class="form">
+          <div class="form-group">
+            <select class="form__field form__select">
+              <option selected value>Choose topic*</option>
+              <option value=1>Technical Issue</option>
+              <option value=2>Feature Request</option>
+              <option value=3>Bug Report</option>
+            </select>
+            </div>
+           <div class="form-group">
+             <div class="form__field--half">
+            <input type="text" placeholder="Name*" class="form__field form__text"></input>
+             </div>
+          <div class="form__field--half">
+          <input type="text" placeholder="Surname" class="form__field form__text"></input>
+          </div>
+          </div>
+      
+        <div class="form-group">
+          <div class="form__field--half">
+            <input type="text" placeholder="Email address*" class="form__field form__text"></input>
+          </div>
+         <div class="form__field--half">
+          <input type="text" placeholder="Phone number" class="form__field form__text"></input>
+    </div>
+          </div>
+  
+          <div class="form-group">
+            <textarea type="text" placeholder="Your messsage*" class="form__field form__textarea"></textarea>
+            <button class="btn btn--up btn--width" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>   
+<div class="col-md-1"></div>
+    </div>
+  </div>
+</div>
+
+<div class="sect sect--violet " style="padding: 100px;">
+  <img src="https://image.ibb.co/fWyVtb/path3762.png" class="career-img">
+  <div class="container">
+     <center><div class="row">
+     <div class="col-md-12">
+        <h1 class="career_title">"Farming is a profession of hope."</h1>
+        <h1 class="career_sub">— Brian Brett</h1>
+        <a href="#" class="btn btn--white btn--width">Go to top</a>
+      </div>
+    </div></center>
+  </div>
+  
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2 col-xs-6">
+        <img class="footer__img" src="../static/Images/Icon.png" style="width: 50px; height: 50px;"> <h1 class="footer__title">Farmer<span class="footer__light">.co</span></h1></div>
+      <div class="col-md-10 col-xs-6">
+        <div class="footer__social">
+          <a href="#" class="footer__social-l">
+            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTguMS4xLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDYxMiA2MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDYxMiA2MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iMTZweCIgaGVpZ2h0PSIxNnB4Ij4KPGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNjEyLDExNi4yNThjLTIyLjUyNSw5Ljk4MS00Ni42OTQsMTYuNzUtNzIuMDg4LDE5Ljc3MmMyNS45MjktMTUuNTI3LDQ1Ljc3Ny00MC4xNTUsNTUuMTg0LTY5LjQxMSAgICBjLTI0LjMyMiwxNC4zNzktNTEuMTY5LDI0LjgyLTc5Ljc3NSwzMC40OGMtMjIuOTA3LTI0LjQzNy01NS40OS0zOS42NTgtOTEuNjMtMzkuNjU4Yy02OS4zMzQsMC0xMjUuNTUxLDU2LjIxNy0xMjUuNTUxLDEyNS41MTMgICAgYzAsOS44MjgsMS4xMDksMTkuNDI3LDMuMjUxLDI4LjYwNkMxOTcuMDY1LDIwNi4zMiwxMDQuNTU2LDE1Ni4zMzcsNDIuNjQxLDgwLjM4NmMtMTAuODIzLDE4LjUxLTE2Ljk4LDQwLjA3OC0xNi45OCw2My4xMDEgICAgYzAsNDMuNTU5LDIyLjE4MSw4MS45OTMsNTUuODM1LDEwNC40NzljLTIwLjU3NS0wLjY4OC0zOS45MjYtNi4zNDgtNTYuODY3LTE1Ljc1NnYxLjU2OGMwLDYwLjgwNiw0My4yOTEsMTExLjU1NCwxMDAuNjkzLDEyMy4xMDQgICAgYy0xMC41MTcsMi44My0yMS42MDcsNC4zOTgtMzMuMDgsNC4zOThjLTguMTA3LDAtMTUuOTQ3LTAuODAzLTIzLjYzNC0yLjMzM2MxNS45ODUsNDkuOTA3LDYyLjMzNiw4Ni4xOTksMTE3LjI1Myw4Ny4xOTQgICAgYy00Mi45NDcsMzMuNjU0LTk3LjA5OSw1My42NTUtMTU1LjkxNiw1My42NTVjLTEwLjEzNCwwLTIwLjExNi0wLjYxMi0yOS45NDQtMS43MjFjNTUuNTY3LDM1LjY4MSwxMjEuNTM2LDU2LjQ4NSwxOTIuNDM4LDU2LjQ4NSAgICBjMjMwLjk0OCwwLDM1Ny4xODgtMTkxLjI5MSwzNTcuMTg4LTM1Ny4xODhsLTAuNDIxLTE2LjI1M0M1NzMuODcyLDE2My41MjYsNTk1LjIxMSwxNDEuNDIyLDYxMiwxMTYuMjU4eiIgZmlsbD0iIzcyOTNiMyIvPgoJPC9nPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+          </a>
+          <a href="#" class="footer__social-l">
+            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDk2LjEyNCA5Ni4xMjMiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDk2LjEyNCA5Ni4xMjM7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNNzIuMDg5LDAuMDJMNTkuNjI0LDBDNDUuNjIsMCwzNi41Nyw5LjI4NSwzNi41NywyMy42NTZ2MTAuOTA3SDI0LjAzN2MtMS4wODMsMC0xLjk2LDAuODc4LTEuOTYsMS45NjF2MTUuODAzICAgYzAsMS4wODMsMC44NzgsMS45NiwxLjk2LDEuOTZoMTIuNTMzdjM5Ljg3NmMwLDEuMDgzLDAuODc3LDEuOTYsMS45NiwxLjk2aDE2LjM1MmMxLjA4MywwLDEuOTYtMC44NzgsMS45Ni0xLjk2VjU0LjI4N2gxNC42NTQgICBjMS4wODMsMCwxLjk2LTAuODc3LDEuOTYtMS45NmwwLjAwNi0xNS44MDNjMC0wLjUyLTAuMjA3LTEuMDE4LTAuNTc0LTEuMzg2Yy0wLjM2Ny0wLjM2OC0wLjg2Ny0wLjU3NS0xLjM4Ny0wLjU3NUg1Ni44NDJ2LTkuMjQ2ICAgYzAtNC40NDQsMS4wNTktNi43LDYuODQ4LTYuN2w4LjM5Ny0wLjAwM2MxLjA4MiwwLDEuOTU5LTAuODc4LDEuOTU5LTEuOTZWMS45OEM3NC4wNDYsMC44OTksNzMuMTcsMC4wMjIsNzIuMDg5LDAuMDJ6IiBmaWxsPSIjNzI5M2IzIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==" />
+          </a>
+          
+          <a href="" class="footer__social-l">
+            <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQzMC4xMTcgNDMwLjExNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDMwLjExNyA0MzAuMTE3OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggaWQ9IkxpbmtlZEluIiBkPSJNNDMwLjExNywyNjEuNTQzVjQyMC41NmgtOTIuMTg4VjI3Mi4xOTNjMC0zNy4yNzEtMTMuMzM0LTYyLjcwNy00Ni43MDMtNjIuNzA3ICAgYy0yNS40NzMsMC00MC42MzIsMTcuMTQyLTQ3LjMwMSwzMy43MjRjLTIuNDMyLDUuOTI4LTMuMDU4LDE0LjE3OS0zLjA1OCwyMi40NzdWNDIwLjU2aC05Mi4yMTljMCwwLDEuMjQyLTI1MS4yODUsMC0yNzcuMzJoOTIuMjEgICB2MzkuMzA5Yy0wLjE4NywwLjI5NC0wLjQzLDAuNjExLTAuNjA2LDAuODk2aDAuNjA2di0wLjg5NmMxMi4yNTEtMTguODY5LDM0LjEzLTQ1LjgyNCw4My4xMDItNDUuODI0ICAgQzM4NC42MzMsMTM2LjcyNCw0MzAuMTE3LDE3Ni4zNjEsNDMwLjExNywyNjEuNTQzeiBNNTIuMTgzLDkuNTU4QzIwLjYzNSw5LjU1OCwwLDMwLjI1MSwwLDU3LjQ2MyAgIGMwLDI2LjYxOSwyMC4wMzgsNDcuOTQsNTAuOTU5LDQ3Ljk0aDAuNjE2YzMyLjE1OSwwLDUyLjE1OS0yMS4zMTcsNTIuMTU5LTQ3Ljk0QzEwMy4xMjgsMzAuMjUxLDgzLjczNCw5LjU1OCw1Mi4xODMsOS41NTh6ICAgIE01LjQ3Nyw0MjAuNTZoOTIuMTg0di0yNzcuMzJINS40NzdWNDIwLjU2eiIgZmlsbD0iIzcyOTNiMyIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=" />
+          </a>
+
+          <a href="#" class="footer__social-l">
+          <img src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQzOC41MzMgNDM4LjUzMyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDM4LjUzMyA0MzguNTMzOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTQwOS4xMzMsMTA5LjIwM2MtMTkuNjA4LTMzLjU5Mi00Ni4yMDUtNjAuMTg5LTc5Ljc5OC03OS43OTZDMjk1LjczNiw5LjgwMSwyNTkuMDU4LDAsMjE5LjI3MywwICAgYy0zOS43ODEsMC03Ni40Nyw5LjgwMS0xMTAuMDYzLDI5LjQwN2MtMzMuNTk1LDE5LjYwNC02MC4xOTIsNDYuMjAxLTc5LjgsNzkuNzk2QzkuODAxLDE0Mi44LDAsMTc5LjQ4OSwwLDIxOS4yNjcgICBjMCwzOS43OCw5LjgwNCw3Ni40NjMsMjkuNDA3LDExMC4wNjJjMTkuNjA3LDMzLjU5Miw0Ni4yMDQsNjAuMTg5LDc5Ljc5OSw3OS43OThjMzMuNTk3LDE5LjYwNSw3MC4yODMsMjkuNDA3LDExMC4wNjMsMjkuNDA3ICAgczc2LjQ3LTkuODAyLDExMC4wNjUtMjkuNDA3YzMzLjU5My0xOS42MDIsNjAuMTg5LTQ2LjIwNiw3OS43OTUtNzkuNzk4YzE5LjYwMy0zMy41OTYsMjkuNDAzLTcwLjI4NCwyOS40MDMtMTEwLjA2MiAgIEM0MzguNTMzLDE3OS40ODUsNDI4LjczMiwxNDIuNzk1LDQwOS4xMzMsMTA5LjIwM3ogTTIxOS4yNywzMS45NzdjNDcuMjAxLDAsODguNDEsMTUuNjA3LDEyMy42MjEsNDYuODJsLTMuNTY5LDQuOTkzICAgYy0xLjQyNywyLjAwMi00Ljk5Niw1Ljg1Mi0xMC43MDQsMTEuNTY1Yy01LjcwOSw1LjcwOC0xMS45NDMsMTEuMTM2LTE4LjY5OSwxNi4yNzRjLTYuNzYyLDUuMTQtMTUuOTQsMTAuOTkyLTI3LjU1NSwxNy41NTkgICBjLTExLjYxMSw2LjU2Ny0yMy45ODIsMTIuMzI4LTM3LjExNywxNy4yNzZjLTIxLjg4Ny00MC4zNTUtNDUuMjk2LTc2LjcwOS03MC4yMzEtMTA5LjA2NCAgIEMxOTAuMDU1LDMzLjc4NCwyMDQuODA1LDMxLjk3NywyMTkuMjcsMzEuOTc3eiBNNzIuNTI0LDEwMy4wNmMxOC4yNzEtMjMuMDI2LDQwLjUzNy00MC43Myw2Ni44MDYtNTMuMSAgIGMyMy42MDEsMzEuNDA1LDQ2LjgyLDY3LjM4MSw2OS42NjIsMTA3LjkyMWMtNTcuODYyLDE1LjIyNy0xMTUuNTMyLDIyLjg0MS0xNzMuMDE0LDIyLjgzOCAgIEM0Mi4wNzIsMTUxLjk4LDU0LjI1MywxMjYuMDkxLDcyLjUyNCwxMDMuMDZ6IE00NC41NCwyODYuNzk0Yy04LjM3Ni0yMS40MTItMTIuNTYzLTQzLjkyMy0xMi41NjMtNjcuNTI3ICAgYzAtMi42NjYsMC4wOTgtNC42NjUsMC4yODYtNS45OTZjNjguOTA1LDAsMTMyLjk1NS04Ljg0OCwxOTIuMTQ5LTI2LjU1M2M2LjA5MiwxMS44LDExLjEzNiwyMi4zNjQsMTUuMTMzLDMxLjY5MyAgIGMtMC43NzEsMC4zOC0xLjk5OSwwLjgwNi0zLjcxMywxLjI4M2MtMS43MTksMC40NzYtMi45NTMsMC44MDYtMy43MjEsMC45OTlsLTEwLjU2MSwzLjcxMSAgIGMtNy4yMzYsMi42NjYtMTYuNzA4LDcuMjM1LTI4LjQwOSwxMy43MDNjLTExLjcwNCw2LjQ3OC0yNC4xMjMsMTQuMTgyLTM3LjI1NywyMy4xM2MtMTMuMTM0LDguOTQ5LTI2LjY5NiwyMC43OTctNDAuNjg0LDM1LjU1MyAgIGMtMTMuOTksMTQuNzUtMjUuNzQzLDMwLjU5MS0zNS4yNiw0Ny41M0M2NC43MTMsMzI3LjM4MSw1Mi45MTQsMzA4LjIsNDQuNTQsMjg2Ljc5NHogTTIxOS4yNyw0MDYuNTYgICBjLTQ0LjU0LDAtODQuMzItMTQuMjc3LTExOS4zNDMtNDIuODI1bDQuMjgzLDMuMTQyYzYuNjYxLTE0LjY2LDE2LjQ2Mi0yOC43NDYsMjkuNDA4LTQyLjI1NyAgIGMxMi45NDQtMTMuNTExLDI1LjQxLTI0LjQxMywzNy40MDEtMzIuNjk1YzExLjk5MS04LjI3NCwyNS4wMjgtMTYuMDc3LDM5LjExNS0yMy40MTRjMTQuMDg0LTcuMzIzLDIzLjY5MS0xMS45OTEsMjguODM1LTEzLjk4MyAgIGM1LjE0LTEuOTk4LDkuMjMzLTMuNTcyLDEyLjI3OC00LjcxNmwwLjU2OC0wLjI4N2gwLjU3NWMxOC42NDcsNDguOTE2LDMxLjk3Nyw5Ni4zMTMsMzkuOTY4LDE0Mi4xODQgICBDMjY4Ljc1Niw0MDEuNjExLDI0NC4zOTcsNDA2LjU1NywyMTkuMjcsNDA2LjU2eiBNMzc2Ljg3NiwzMjAuNDc5Yy0xNC4wODYsMjEuNzk2LTMxLjY5NiwzOS44MzQtNTIuODE3LDU0LjEwNCAgIGMtNy44MS00My43NzYtMTkuOTg1LTg4LjQxNS0zNi41NDktMTMzLjkwMmMzNy44NzctNS45MDcsNzYuOC0zLjE0MiwxMTYuNzcxLDguMjc0ICAgQzQwMC4wOTIsMjc0Ljg0MSwzOTAuOTU1LDI5OC42ODcsMzc2Ljg3NiwzMjAuNDc5eiBNNDAzLjcwNiwyMTYuNjk4Yy0xLjkwMy0wLjM3OC00LjI4NS0wLjgxLTcuMTM5LTEuMjgzICAgYy0yLjg1NC0wLjQ3My02LjMzMS0xLjA0Ny0xMC40MjQtMS43MTNjLTQuMDg3LTAuNjY2LTguNjYyLTEuMjgzLTEzLjcwMi0xLjg1NWMtNS4wNDUtMC41NzEtMTAuNDIxLTEuMDkzLTE2LjEzNi0xLjU2OSAgIGMtNS43MDgtMC40NzgtMTEuOC0wLjg1NS0xOC4yNjgtMS4xNDNjLTYuNDc5LTAuMjg0LTEzLjA0Mi0wLjQyOC0xOS43MDUtMC40MjhjLTYuNjU2LDAtMTMuNjU3LDAuMTkzLTIwLjk4MSwwLjU3MSAgIGMtNy4zMjYsMC4zNzUtMTQuNDE0LDEuMDQ5LTIxLjI2NSwxLjk5OWMtMC41NzUtMC45NTMtMS4yODctMi41MjQtMi4xNDMtNC43MTRjLTAuODU1LTIuMTg3LTEuNDc5LTMuODU1LTEuODQ4LTQuOTk3ICAgYy0zLjYyMS03Ljk5NC03LjgxLTE3LjAzNi0xMi41NzMtMjcuMTIxYzEzLjEzNC01LjMzMywyNS42NTItMTEuNDY5LDM3LjU1NS0xOC40MThjMTEuODkyLTYuOTQ5LDIxLjQwMi0xMy4xMzEsMjguNTQ0LTE4LjU1NSAgIGM3LjEzOS01LjQzLDEzLjg5NS0xMS4xODgsMjAuMjctMTcuMjc3YzYuMzc5LTYuMDksMTAuNTEzLTEwLjMyMywxMi40MjMtMTIuNzAzYzEuOTA2LTIuMzg0LDMuNzEzLTQuNzE0LDUuNDI0LTYuOTk1bDAuMjg3LTAuMjg4ICAgYzI3Ljc4OCwzMy44OCw0MS45NzQsNzIuODk3LDQyLjUzOCwxMTcuMDU5TDQwMy43MDYsMjE2LjY5OHoiIGZpbGw9IiM3MjkzYjMiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+<script>
+  var unitIsCelcius = true;
+  var globalForecast = [];
+  
+  
+  var weatherIconsMap = {
+    "01d": "wi-day-sunny",
+    "01n": "wi-night-clear",
+    "02d": "wi-day-cloudy",
+    "02n": "wi-night-cloudy",
+    "03d": "wi-cloud",
+    "03n": "wi-cloud",
+    "04d": "wi-cloudy",
+    "04n": "wi-cloudy",
+    "09d": "wi-showers",
+    "09n": "wi-showers",
+    "10d": "wi-day-hail",
+    "10n": "wi-night-hail",
+    "11d": "wi-thunderstorm",
+    "11n": "wi-thunderstorm",
+    "13d": "wi-snow",
+    "13n": "wi-snow",
+    "50d": "wi-fog",
+    "50n": "wi-fog"
+  };
+  
+  
+  $(function(){
+    getClientPosition();
+    startClock();
+    updateForecast(globalForecast);
+  });
+  
+  
+  function startClock(){
+    setInterval(function(){
+      $("#localTime").text(new Date().toLocaleTimeString());
+    }, 1000);
+  }
+  
+  
+  function getClientPosition(){
+    $.getJSON("https://ipapi.co/json/", function(position) {
+      $("#cityName").text(position.city);
+      $("#cityCode").text(position.country);
+      
+      getWeatherData(position.latitude, position.longitude);
+    });
+  }
+  
+  
+  function getWeatherData(latitude, longitude) {
+    $.ajax({
+        type: "GET",
+        url: "https://api.openweathermap.org/data/2.5/forecast/daily",
+        data: {
+            APPID: "9b4bbf30228eb8528d36e79d05da1fac",
+            lat: latitude,
+            lon: longitude,
+            units: "metric",
+            cnt: 5
+        },
+        cache: true,
+        success: function(forecast) {
+            globalForecast = forecast;
+            updateForecast(forecast);
+  
+            // Stops Refresh button's spinning animation
+            $("#refreshButton").html("<i class='fa fa-refresh fa-fw'></i> Refresh");
+        },
+        error: function(error) {
+            console.log("Error with ajax: " + error);
+        }
+    });
+  }
+  
+  // Update view values from passed forecast
+  function updateForecast(forecast){
+  
+    // Present day
+    var today = forecast.list[0];
+    $("#tempDescription").text(toCamelCase(today.weather[0].description));
+    $("#humidity").text(today.humidity);
+    $("#wind").text(today.speed);
+    $("#localDate").text(getFormattedDate(today.dt));
+    $("#main-icon").addClass(weatherIconsMap[today.weather[0].icon]);
+    $("#mainTemperature").text(Math.round(today.temp.day));
+    $("#mainTempHot").text(Math.round(today.temp.max));
+    $("#mainTempLow").text(Math.round(today.temp.min));
+  
+  
+    // Following days data
+    for(var i = 1; i < (forecast.list).length; i++){
+      var day = forecast.list[i];
+  
+      // Day short format e.g. Mon
+      var dayName = getFormattedDate(day.dt).substring(0,3);
+  
+      // weather icon from map
+      var weatherIcon = weatherIconsMap[day.weather[0].icon];
+  
+      $("#forecast-day-" + i + "-name").text(dayName);
+      $("#forecast-day-" + i + "-icon").addClass(weatherIcon);
+      $("#forecast-day-" + i + "-main").text(Math.round(day.temp.day));
+      $("#forecast-day-" + i + "-ht").text(Math.round(day.temp.max));
+      $("#forecast-day-" + i + "-lt").text(Math.round(day.temp.min));
+    }
+  }
+  
+  
+  // Refresh button handler
+  $("#refreshButton").on("click", function(){
+    // Starts Refresh button's spinning animation
+    $("#refreshButton").html("<i class='fa fa-refresh fa-spin fa-fw'></i>");
+    getWeatherData();
+  });
+  
+  
+  // Celcius button handler.
+  // Converts every shown value to Celcius
+  $("#celcius").on("click", function(){
+    if(!unitIsCelcius){
+      $("#farenheit").removeClass("active");
+      this.className = "active";
+  
+      // main day
+      var today = globalForecast.list[0];
+      today.temp.day = toCelcius(today.temp.day);
+      today.temp.max = toCelcius(today.temp.max);
+      today.temp.min = toCelcius(today.temp.min);
+      globalForecast.list[0] = today;
+  
+      // week
+      for(var i = 1; i < 5; i ++){
+        var weekDay = globalForecast.list[i];
+        weekDay.temp.day = toCelcius(weekDay.temp.day);
+        weekDay.temp.max = toCelcius(weekDay.temp.max);
+        weekDay.temp.min = toCelcius(weekDay.temp.min);
+        globalForecast[i] = weekDay;
+      }
+  
+      // update view with updated values
+      updateForecast(globalForecast);
+  
+      unitIsCelcius = true;
+    }
+  });
+  
+  
+  // Farenheit button handler
+  // Converts every shown value to Farenheit
+  $("#farenheit").on("click", function(){  
+    if(unitIsCelcius){
+      $("#celcius").removeClass("active");
+      this.className = "active";
+      
+      // main day
+      var today = globalForecast.list[0];
+      today.temp.day = toFerenheit(today.temp.day);
+      today.temp.max = toFerenheit(today.temp.max);
+      today.temp.min = toFerenheit(today.temp.min);
+      globalForecast.list[0] = today;
+  
+      // week
+      for(var i = 1; i < 5; i ++){
+        var weekDay = globalForecast.list[i];
+        weekDay.temp.day = toFerenheit(weekDay.temp.day);
+        weekDay.temp.max = toFerenheit(weekDay.temp.max);
+        weekDay.temp.min = toFerenheit(weekDay.temp.min);
+        globalForecast[i] = weekDay;
+      }
+  
+      // update view with updated values
+      updateForecast(globalForecast);
+      
+      unitIsCelcius = false;
+    }
+  });
+  
+  
+  // Applies the following format to date: WeekDay, Month Day, Year
+  function getFormattedDate(date){
+    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(date * 1000).toLocaleDateString("en-US",options);
+  }
+  
+  
+  // Formats the text to CamelCase
+  function toCamelCase(str) {
+    var arr = str.split(" ").map(
+      function(sentence){
+        return sentence.charAt(0).toUpperCase() + sentence.substring(1);
+      }
+    );
+    return arr.join(" ");
+  }
+  
+  
+  // Converts to Celcius
+  function toCelcius(val){
+    return Math.round((val - 32) * (5/9));
+  }
+  
+  
+  // Converts to Farenheit
+  function toFerenheit(val){
+    var degrees = (val * 1.8) + 32;
+    var rounded = Math.round(degrees);
+    return rounded;
+  }</script>
+  <script>
+    (function() {
+        var throttle = function(type, name, obj) {
+            obj = obj || window;
+            var running = false;
+            var func = function() {
+                if (running) { return; }
+                running = true;
+                 requestAnimationFrame(function() {
+                    obj.dispatchEvent(new CustomEvent(name));
+                    running = false;
+                });
+            };
+            obj.addEventListener(type, func);
+        };
+        throttle("resize", "optimizedResize");
+    })();
+    
+    var roadmap = (function() {
+      var wrapper = document.querySelector('.js-roadmap-timeline');
+      var timeframes = document.querySelectorAll('.js-roadmap-timeframe');
+      var mediaQuery = window.matchMedia("(min-width: 1201px)");
+      var topMaxHeight;
+      var bottomMaxHeight;
+      
+      handleStyling();
+      window.addEventListener("optimizedResize", handleStyling);
+      
+      function handleStyling() {
+        if (mediaQuery.matches) {
+          applyHeights();
+          styleWrapper();
+        } else {
+          clearWrapperStyling();
+        }
+      }
+      
+      function applyHeights() {
+          topMaxHeight = getMaxHeight(timeframes, 0);
+          bottomMaxHeight = getMaxHeight(timeframes, 1);
+      }
+      
+      function getMaxHeight(els, start) {
+        var maxHeight = 0;
+        var i = start;
+        
+        for (; i < els.length - 1; i = i + 2) {
+          var elHeight = els[i].offsetHeight;
+          maxHeight = maxHeight > elHeight ? maxHeight : elHeight;
+        }
+        
+        return maxHeight;
+      }
+      
+      function styleWrapper() {
+        wrapper.style.paddingBottom = bottomMaxHeight + 'px';
+        wrapper.style.paddingTop = topMaxHeight + 'px';
+      }
+      
+      function clearWrapperStyling() {
+        wrapper.style.paddingBottom = '';
+        wrapper.style.paddingTop = '';
+      }
+    })();
+
+</script>
+
+</body>
+</html>
